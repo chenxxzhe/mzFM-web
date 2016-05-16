@@ -1,18 +1,13 @@
 var webpack = require('webpack');
 var path = require('path');
-var ROOT_PATH = path.resolve(__dirname);
 
 module.exports = {
   
-  entry: [
-    'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
-    path.resolve(ROOT_PATH, 'app/main'),
-  ],
-
+  entry: path.resolve(__dirname, 'index.js'),
+  
   output: {
-    path: './build',
-    publicPath: "/assets/",
+    path: './public',
+    publicPath: "/",
     filename: 'bundle.js',
   },
 
@@ -25,20 +20,20 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader:  'react-hot!babel',
+        loader:  'babel?presets[]=es2015,presets[]=react',
       },
       
       // {test: '/\.js$/', loader: 'babel'},
 
-      { test: '/\.css$/', loaders: ['style', 'css']},
+      { test: /\.css$/, loaders: ['style', 'css']},
     ],
   },
 
 
-  plugins: [
-    new webpack.BannerPlugin('this is created by philoz'),
-    new webpack.NoErrorsPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-  ],
+  plugins: process.env.NODE_ENV === 'production' ? [
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.UglifyJsPlugin(),
+  ] : [],
 
 }
