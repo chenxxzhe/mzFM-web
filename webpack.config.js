@@ -2,7 +2,6 @@ var webpack = require('webpack');
 var path = require('path');
 
 module.exports = {
-  
   entry: path.resolve(__dirname, 'index.js'),
   
   output: {
@@ -20,10 +19,9 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader:  'babel?presets[]=es2015,presets[]=react',
+        loader:  'babel',
       },
       
-      // {test: '/\.js$/', loader: 'babel'},
 
       { test: /\.css$/, loaders: ['style', 'css']},
     ],

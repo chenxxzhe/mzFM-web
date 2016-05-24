@@ -1,0 +1,99 @@
+body {margin: 0; padding: 0; font-size: 16px;}
+
+header {
+	position: fixed;
+	top: 0;
+	display: flex;
+	justify-content: space-around;
+	width: 100%;
+	height: 2em;
+	background: pink;
+}
+
+/*main*/
+.sidebar {
+	position: fixed;
+	top: 2em;
+	left: 0;
+	bottom: 2em;
+	width: 10em;
+	background: yellow;
+	overflow: scroll;
+
+}
+
+.content {
+	margin-top: 2em;
+	margin-left: 10em;
+}
+
+.content .songs-list  li span:hover{
+	cursor: pointer;
+	background: #a1a1a1;
+}
+
+/*popup menu*/
+.list-option {
+	position: absolute;
+	display: none;
+	padding: 0.8em;
+	background: #ddd;
+	border: 1px solid #bbb;
+	box-shadow: 2px 2px 2px #888;
+	list-style: none;
+	
+}
+.list-option li:hover{
+	cursor: pointer;
+	background: #bbb;
+}
+
+/*footer*/
+footer {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+	height: 2em;
+	background: pink;
+
+}
+
+footer button {
+	vertical-align: top;
+}
+
+footer .playlist {
+	position: absolute;
+	right: 6em;
+	bottom: 2em;
+	
+	height: 17em;
+	overflow: auto;
+	background: #aaaaaa;
+}
+
+footer .playlist ul{
+	padding-left: 0;
+	list-style: none;
+}
+
+footer .playlist span:hover{
+	cursor: pointer;
+	color: red;
+}
+footer .playlist .active{
+	color: red;
+}
+
+/*query*/
+.query {
+	margin-top: 2em;
+}
+
+.query .query-result span {
+	cursor: pointer;
+}
+.query .query-result span:hover{
+	background: #bbb;
+}
+
