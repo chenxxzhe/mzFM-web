@@ -1,12 +1,13 @@
 var webpack = require('webpack');
 var path = require('path');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: path.resolve(__dirname, 'index.js'),
-  
+
   output: {
     path: './public',
-    publicPath: "/",
+    publicPath: '/',
     filename: 'bundle.js',
   },
 
@@ -21,17 +22,17 @@ module.exports = {
         exclude: /node_modules/,
         loader:  'babel',
       },
-      
-
-      { test: /\.css$/, loaders: ['style', 'css']},
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style', 'css'),
+      },
     ],
   },
-
 
   plugins: process.env.NODE_ENV === 'production' ? [
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
-  ] : [],
-
-}
+    new ExtractTextPlugin('style.css'),
+  ] : [new ExtractTextPlugin('style.css')],
+};

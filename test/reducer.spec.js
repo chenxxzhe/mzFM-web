@@ -7,10 +7,10 @@ const initialState = {
 	lists: {
 		currentList: 0,
 		items: [
-			{title:'default', include:['152539','1137302','741403']},
+			{title:'default', include:['152539', '1137302', '741403']},
 		],
 	},
-	
+
 	playList: {
 		currentSong: 0,
 		items: [
@@ -19,6 +19,7 @@ const initialState = {
 		],
 	},
 	showPlayList: false,
+	mode: 0,
 	query: {
 		isFetching: false,
 		response: null,
@@ -27,7 +28,7 @@ const initialState = {
 
 describe('Test reducer', ()=>{
 	it('should return the initial state if nothing happen', ()=>{
-		expect(reducer(undefined,{})).to.eql(initialState);
+		expect(reducer(undefined, {})).to.eql(initialState);
 	});
 
 	describe('lists reducer', ()=>{
@@ -37,9 +38,8 @@ describe('Test reducer', ()=>{
 			const createAction = {
 				type: ACTIONS.CREATE_LIST,
 				title: 'title',
-
 			};
-			const expectedLists = Object.assign({}, lists, {items: lists.items.concat({title:'title',include:[]})});
+			const expectedLists = Object.assign({}, lists, {items: lists.items.concat({title:'title', include:[]})});
 			expect(reducer(undefined, createAction).lists).to.eql(expectedLists);
 		});
 
@@ -70,14 +70,32 @@ describe('Test reducer', ()=>{
 			const twoListsState = reducer(undefined, {type:ACTIONS.CREATE_LIST, title:'title'});
 			const expectedLists = Object.assign({}, twoListsState.lists, {currentList: 1});
 			expect(reducer(twoListsState, changeAction).lists).to.eql(expectedLists);
-
 		});
-		
+
+		it('can add song to specific list', ()=>{
+			const listId = 1, songId = '123';
+			const addTo = {
+				type: ACTIONS.ADD_SONG,
+				listId: listId,
+				songId: songId,
+			};
+			const createAction = {
+				type: ACTIONS.CREATE_LIST,
+				title: 'title',
+			};
+			const stateWith2Lists = reducer(undefined, createAction);
+			const copy = stateWith2Lists.lists.items.slice();
+			copy[listId].include.push(songId);
+			const newItems = copy;
+			const expected = Object.assign({}, stateWith2Lists.lists, {items: newItems});
+			expect(reducer(stateWith2Lists, addTo).lists).to.eql(expected);
+		});
+
 	});
 
 	describe('playList reducer', ()=>{
 		const playList = initialState.playList;
-		it('can add song', ()=>{
+		it('can add song to play list', ()=>{
 			const addSongAction = {
 				type: ACTIONS.ADD_SONG_TO_PLAY_LIST,
 				id: 123,
@@ -86,6 +104,8 @@ describe('Test reducer', ()=>{
 			const expected = Object.assign({}, playList, {items: newItems});
 			expect(reducer(undefined, addSongAction).playList).to.eql(expected);
 		});
+
+
 
 		it('can play song', ()=>{
 			const playSong = {
@@ -105,7 +125,7 @@ describe('Test reducer', ()=>{
 			const newItems = playList.items.slice();
 			newItems.splice(index, 1);
 			const expected = Object.assign({}, playList, {items:newItems});
-			expect(reducer(undefined,removeSong).playList).to.eql(expected);
+			expect(reducer(undefined, removeSong).playList).to.eql(expected);
 		});
 	});
 
@@ -137,7 +157,6 @@ describe('Test reducer', ()=>{
 			expect(reducer(undefined, success).query).to.eql(expected);
 		});
 
-		
 	});
 
 	describe('showPlayList reducer', ()=>{
@@ -148,6 +167,19 @@ describe('Test reducer', ()=>{
 			const shown = reducer(undefined, toggle);
 			expect(reducer(undefined, toggle).showPlayList).to.be.true;
 			expect(reducer(shown, toggle).showPlayList).to.be.false;
+		});
+	});
+
+	describe('mode reducer', ()=>{
+		it('can change mode by order', ()=>{
+			const change = {
+				type: ACTIONS.CHANGE_MODE,
+			};
+			expect(reducer(undefined, change).mode).to.eql(1);
+			const random = reducer(undefined, change);
+			expect(reducer(random, change).mode).to.eql(2);
+			const single = reducer(random, change);
+			expect(reducer(single, change).mode).to.eql(0);
 		});
 	});
 });

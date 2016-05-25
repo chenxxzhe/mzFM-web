@@ -18,13 +18,24 @@ header {
 	bottom: 2em;
 	width: 10em;
 	background: yellow;
-	overflow: scroll;
+	overflow: auto;
 
+}
+.sidebar ul{
+	list-style: none;
+	padding-left:1em;
 }
 
 .content {
 	margin-top: 2em;
 	margin-left: 10em;
+	padding: 1em;
+	overflow: auto;
+}
+
+.content .songs-list ul {
+	list-style: none;
+	padding-left: 0;
 }
 
 .content .songs-list  li span:hover{

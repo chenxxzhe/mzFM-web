@@ -4,8 +4,8 @@ import {Provider} from 'react-redux';
 import {Router, browserHistory, Route, IndexRoute} from 'react-router';
 
 import App from './app/App';
-import Main from './app/components/Main';
-import Query from './app/components/Query';
+import Main from './app/container/Main';
+import Query from './app/container/Query';
 import './app/style.css';
 
 import configureStore from './app/store/configureStore';

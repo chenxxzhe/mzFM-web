@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
-import Header from './components/Header';
-// import Main from './components/Main';
-import Footer from './components/Footer';
+import Header from './container/Header';
+import Footer from './container/Footer';
 
 class App extends React.Component {
     constructor(props) {

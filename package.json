@@ -7,7 +7,7 @@
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "webpack && node server.js",
     "start:dev": "webpack-dev-server --inline --colors --history-api-fallback --content-base public",
-    "test": "mocha --compilers js:babel-register"
+    "test": "mocha --compilers js:babel-register --colors"
   },
   "repository": {
     "type": "git",
@@ -37,6 +37,7 @@
     "eslint": "^2.10.2",
     "eslint-plugin-react": "^5.1.1",
     "express": "^4.13.4",
+    "extract-text-webpack-plugin": "^1.0.1",
     "if-env": "^1.0.0",
     "mocha": "^2.4.5",
     "react": "^15.0.2",
